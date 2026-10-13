@@ -43,4 +43,11 @@ docker-run:
 docker-bash:
 	docker run --rm -it -p 3000:8080 java-spring-boot-hello-world bash
 
+docker-test:
+	docker run --rm java-spring-boot-hello-world make test
+
+docker-stop:
+	docker stop spring-hello-world
+	docker rm spring-hello-world
+
 .PHONY: build

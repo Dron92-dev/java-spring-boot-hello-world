@@ -1,0 +1,10 @@
+FROM gradle:jdk25-corretto AS build
+WORKDIR /app
+COPY --chown=gradle:gradle . .
+RUN ./gradlew build -x test --info --console=plain
+
+FROM eclipse-temurin:25-jre
+WORKDIR /app
+COPY --from=build /app/build/libs/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
